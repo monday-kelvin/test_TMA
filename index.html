@@ -163,11 +163,10 @@
         function signTransaction() {
             var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello1';
-            if (!tonConnectUI.connected) {
-                 var s2izeEl = document.getElementById('result');
+            if (tonConnectUI.connected) {
+
                      s2izeEl.innerText = 'hello3';
             }
-             var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello4';
         }
 
