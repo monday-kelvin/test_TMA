@@ -145,8 +145,6 @@
             }
         };
 
-
-
         function setViewportData() {
             var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello2';
@@ -158,16 +156,16 @@
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
 
-        try {
-                const walletConnectionSource = {
-                    universalLink: 'https://app.tonkeeper.com/ton-connect',
-                    bridgeUrl: 'https://bridge.tonapi.io/bridge'
-                };
-                await connector.connect(walletConnectionSource);
-                s2izeEl.textContent = 'Wallet connected successfully!';
-            } catch (error) {
-                s2izeEl.textContent = 'Failed to connect wallet: ' + error.message;
-            }
+        // const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        // manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
+        // buttonRootId: 'ton-connect'
+        // });
+        const tonConnectUI = new TonConnect({
+            manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
+            buttonRootId: 'ton-connect'
+        });
+
+
         async function signTransaction() {
             var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello1-1';
@@ -190,9 +188,9 @@
             };
 
             try {
-                const result = await tonConnectUI.
+                const result = await connector.rawApi.signTransaction(transaction);
                 console.log('Transaction signed:', result);
-                s2izeEl.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 100) + '...';
+                s2izeEl.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 20) + '...';
 
                 // Here you would typically send the signed transaction to your server
                 // sendToServer(result.boc);
