@@ -176,18 +176,18 @@
          //        ]
          //    }
 
-            try {
-                const result = await connector.rawApi.signTransaction(transaction);
-                console.log('Transaction signed:', result);
-                resultDiv.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 20) + '...';
-
-                // Here you would typically send the signed transaction to your server
-                // sendToServer(result.boc);
-            } catch (error) {
-                console.error('Failed to sign transaction:', error);
-                resultDiv.textContent = 'Failed to sign transaction: ' + error.message;
-            }
-        }
+        //     try {
+        //         const result = await connector.rawApi.signTransaction(transaction);
+        //         console.log('Transaction signed:', result);
+        //         resultDiv.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 20) + '...';
+        //
+        //         // Here you would typically send the signed transaction to your server
+        //         // sendToServer(result.boc);
+        //     } catch (error) {
+        //         console.error('Failed to sign transaction:', error);
+        //         resultDiv.textContent = 'Failed to sign transaction: ' + error.message;
+        //     }
+        // }
 
         Telegram.WebApp.setHeaderColor('secondary_bg_color');
 
