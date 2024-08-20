@@ -155,8 +155,15 @@
             var expandEl = document.querySelector('#viewport-params-expand');
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
+
+        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
+        buttonRootId: 'ton-connect'
+        });
         function signTransaction() {
-            if (!connector.connected) {
+            var s2izeEl = document.getElementById('result');
+            s2izeEl.innerText = 'hello1';
+            if (!tonConnectUI.connected) {
                  var s2izeEl = document.getElementById('result');
                      s2izeEl.innerText = 'hello3';
             }
@@ -175,10 +182,7 @@
 
     </script>
     <script>
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
-        buttonRootId: 'ton-connect'
-    });
+
 
     // const resultDiv = document.getElementById('result');
 
