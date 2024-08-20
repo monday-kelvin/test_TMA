@@ -92,7 +92,7 @@
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
-        <button onclick="toggleMainButton();">Toggle sign4 Button</button>
+        <button onclick="signTransaction();">Toggle sign4 Button</button>
 
     </main>
     <div id="viewport"></div>
@@ -155,14 +155,14 @@
             var expandEl = document.querySelector('#viewport-params-expand');
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
-        // async function signTransaction() {
-        //     if (!connector.connected) {
-        //          var s2izeEl = document.getElementById('result');
-        //              s2izeEl.innerText = 'hello2';
-        //     }
-        //      var s2izeEl = document.getElementById('result');
-        //     s2izeEl.innerText = 'hello';
-        // }
+        function signTransaction() {
+            if (!connector.connected) {
+                 var s2izeEl = document.getElementById('result');
+                     s2izeEl.innerText = 'hello3';
+            }
+             var s2izeEl = document.getElementById('result');
+            s2izeEl.innerText = 'hello4';
+        }
 
         Telegram.WebApp.setHeaderColor('secondary_bg_color');
 
