@@ -167,19 +167,19 @@
 
                      s2izeEl.innerText = 'hello3-1';
 
+
                       const transaction = {
-                valid_until: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
-                network: 'testnet',
-                from: tonConnectUI.address,
+                validUntil: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
                 messages: [
                     {
                         address: 'UQAtnD7rvitlPXIC6Pdmonees_KSkkB2Hp5w414_kohtGSID', // Replace with actual recipient address
-                        amount: '10000', // 0.1 TON
+                        amount: '1000000', // 0.1 TON
                         stateInit: null,
                         payload: 'te6ccgEBAQEABgAACCiAmCM='
                     }
                 ]
             };
+
 
             try {
                 const result = await tonConnectUI.sendTransaction(transaction);
