@@ -169,7 +169,8 @@
 
 
                       const transaction = {
-                validUntil: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
+                validUntil: Math.floor(Date.now() / 1000) + 60,
+                          from: tonConnectUI.address,
                 messages: [
                     {
                         address: 'UQAtnD7rvitlPXIC6Pdmonees_KSkkB2Hp5w414_kohtGSID', // Replace with actual recipient address
