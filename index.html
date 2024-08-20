@@ -162,14 +162,44 @@
         });
         async function signTransaction() {
             var s2izeEl = document.getElementById('result');
-            s2izeEl.innerText = 'hello1';
+            s2izeEl.innerText = 'hello1-1';
             if (tonConnectUI.connected) {
 
-                     s2izeEl.innerText = 'hello3';
+                     s2izeEl.innerText = 'hello3-1';
+
+                      const transaction = {
+                valid_until: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
+                network: 'testnet',
+                from: connector.account.address,
+                messages: [
+                    {
+                        address: 'EQA...', // Replace with actual recipient address
+                        amount: '100000000', // 0.1 TON
+                        stateInit: null,
+                        payload: 'te6ccgEBAQEABgAACCiAmCM='
+                    }
+                ]
+            };
+
+            try {
+                const result = await connector.rawApi.signTransaction(transaction);
+                console.log('Transaction signed:', result);
+                resultDiv.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 20) + '...';
+
+                // Here you would typically send the signed transaction to your server
+                // sendToServer(result.boc);
+            } catch (error) {
+                console.error('Failed to sign transaction:', error);
+                resultDiv.textContent = 'Failed to sign transaction: ' + error.message;
+            }
+
+
             }
             else {
-                s2izeEl.innerText = 'hello4';
+                s2izeEl.innerText = 'hello4-1';
             }
+
+
 
         }
 
