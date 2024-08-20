@@ -28,7 +28,6 @@
             pointer-events: none;
             transition: all .2s ease;
         }
-
         #viewport:after {
             content: '';
             display: block;
@@ -43,8 +42,7 @@
         }
 
         #viewport-params-size,
-        #viewport-params-expand,
-        #result{
+        #viewport-params-expand {
             content: attr(text);
             position: absolute;
             display: inline-block;
@@ -60,9 +58,6 @@
         }
         #viewport-params-expand {
             top: 30px;
-        }
-         #result {
-            top: 20px;
         }
     </style>
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
@@ -93,7 +88,7 @@
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
-        <button onclick="toggleMainButton();">Toggle sign3 Button</button>
+        <button onclick="signTransaction();">Toggle sign4 Button</button>
 
     </main>
     <div id="viewport"></div>
@@ -147,14 +142,21 @@
         };
 
         function setViewportData() {
-              var s2izeEl = document.getElementById('result');
-            s2izeEl.innerText = 'hello';
+
             var sizeEl = document.getElementById('viewport-params-size');
             sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' + 
                 'height: ' + Telegram.WebApp.viewportStableHeight;
 
             var expandEl = document.querySelector('#viewport-params-expand');
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
+        }
+        async function signTransaction() {
+            if (!connector.connected) {
+                 var s2izeEl = document.getElementById('result');
+                     s2izeEl.innerText = 'hello2';
+            }
+             var s2izeEl = document.getElementById('result');
+            s2izeEl.innerText = 'hello';
         }
 
         Telegram.WebApp.setHeaderColor('secondary_bg_color');
