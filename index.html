@@ -121,8 +121,8 @@
         buttonRootId: 'ton-connect'
         });
 
-        const resultDiv = document.getElementById('result');
-        resultDiv.textContent = 'hi';
+        // const resultDiv = document.getElementById('result');
+        // resultDiv.textContent = 'hi';
         function showPopup() {
             Telegram.WebApp.showPopup({
                 title: 'Title',
@@ -156,25 +156,25 @@
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
 
-         async function signTransaction() {
-            if (!connector.connected) {
-                resultDiv.textContent = 'Wallet not connected';
-                return;
-            }
-
-            const transaction = {
-                valid_until: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
-                network: 'testnet',
-                from: connector.account.address,
-                messages: [
-                    {
-                        address: 'EQA...', // Replace with actual recipient address
-                        amount: '100000000', // 0.1 TON
-                        stateInit: null,
-                        payload: 'te6ccgEBAQEABgAACCiAmCM='
-                    }
-                ]
-            }
+         // async function signTransaction() {
+         //    if (!connector.connected) {
+         //        resultDiv.textContent = 'Wallet not connected';
+         //        return;
+         //    }
+         //
+         //    const transaction = {
+         //        valid_until: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
+         //        network: 'testnet',
+         //        from: connector.account.address,
+         //        messages: [
+         //            {
+         //                address: 'EQA...', // Replace with actual recipient address
+         //                amount: '100000000', // 0.1 TON
+         //                stateInit: null,
+         //                payload: 'te6ccgEBAQEABgAACCiAmCM='
+         //            }
+         //        ]
+         //    }
 
             try {
                 const result = await connector.rawApi.signTransaction(transaction);
