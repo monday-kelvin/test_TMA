@@ -88,7 +88,7 @@
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
-        <button id="signButton" style="display: none;">Sign Transaction</button>
+        <button onclick="signTransaction();">Toggle sign Button</button>
 
     </main>
     <div id="viewport"></div>
@@ -165,7 +165,6 @@
         buttonRootId: 'ton-connect'
     });
 
-    const signButton = document.getElementById('signButton');
     const resultDiv = document.getElementById('result');
 
     async function signTransaction() {
