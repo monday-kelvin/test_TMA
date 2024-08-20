@@ -156,48 +156,18 @@
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
 
-        // const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        // manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
-        // buttonRootId: 'ton-connect'
-        // });
-        const tonConnectUI = new TonConnect({
-            manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
-            buttonRootId: 'ton-connect'
+        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
+        buttonRootId: 'ton-connect'
         });
 
         async function signTransaction() {
             var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello1-1';
-            if (tonConnectUI.connect.connected) {
+
+            if (tonConnectUI.connected) {
 
                      s2izeEl.innerText = 'hello3-1';
-
-                      const transaction = {
-                valid_until: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
-                network: 'testnet',
-                from: tonConnectUI.address,
-                messages: [
-                    {
-                        address: 'UQAtnD7rvitlPXIC6Pdmonees_KSkkB2Hp5w414_kohtGSID', // Replace with actual recipient address
-                        amount: '1000000', // 0.1 TON
-                        stateInit: null,
-                        payload: 'te6ccgEBAQEABgAACCiAmCM='
-                    }
-                ]
-            };
-
-            try {
-                const result = await connector.rawApi.signTransaction(transaction);
-                console.log('Transaction signed:', result);
-                s2izeEl.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 20) + '...';
-
-                // Here you would typically send the signed transaction to your server
-                // sendToServer(result.boc);
-            } catch (error) {
-                console.error('Failed to sign transaction:', error);
-                s2izeEl.textContent = 'Failed to sign transaction: ' + error.message;
-            }
-
 
             }
             else {
