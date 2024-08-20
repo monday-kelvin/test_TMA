@@ -160,7 +160,7 @@
         manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
         buttonRootId: 'ton-connect'
         });
-        function signTransaction() {
+        async function signTransaction() {
             var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello1';
             if (tonConnectUI.connected) {
