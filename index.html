@@ -115,6 +115,8 @@
         });	
         Telegram.WebApp.MainButton.show();
 
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = 'hello';
         // Function to call showPopup API
         function showPopup() {
             Telegram.WebApp.showPopup({
