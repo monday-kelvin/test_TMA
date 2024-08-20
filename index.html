@@ -28,6 +28,16 @@
             pointer-events: none;
             transition: all .2s ease;
         }
+
+        #result {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: var(--tg-viewport-stable-height, 100vh);
+            pointer-events: none;
+            transition: all .2s ease;
+        }
         #viewport:after {
             content: '';
             display: block;
@@ -42,8 +52,7 @@
         }
 
         #viewport-params-size,
-        #viewport-params-expand,
-        #result{
+        #viewport-params-expand {
             content: attr(text);
             position: absolute;
             display: inline-block;
@@ -59,9 +68,6 @@
         }
         #viewport-params-expand {
             top: 30px;
-        }
-        #result {
-            top: 20px;
         }
     </style>
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
@@ -146,7 +152,7 @@
         };
 
         function setViewportData() {
-var s2izeEl = document.getElementById('result');
+            var s2izeEl = document.getElementById('result');
             s2izeEl.innerText = 'hello2';
             var sizeEl = document.getElementById('viewport-params-size');
             sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' + 
