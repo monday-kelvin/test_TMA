@@ -88,7 +88,7 @@
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
-        <button onclick="toggleMainButton();">Toggle sign Button</button>
+        <button onclick="signTransaction();">Toggle sign Button</button>
 
     </main>
     <div id="viewport"></div>
@@ -116,6 +116,13 @@
         Telegram.WebApp.MainButton.show();
 
         // Function to call showPopup API
+         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
+        buttonRootId: 'ton-connect'
+        });
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = 'hi';
         function showPopup() {
             Telegram.WebApp.showPopup({
                 title: 'Title',
@@ -149,25 +156,7 @@
             expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
 
-        Telegram.WebApp.setHeaderColor('secondary_bg_color');
-
-        setViewportData();
-        Telegram.WebApp.onEvent('viewportChanged', setViewportData);
-
-        Telegram.WebApp.onEvent('themeChanged', function() {
-            document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
-        });
-
-    </script>
-    <script>
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://monday-kelvin.github.io/test_TMA/tonconnect-manifest.json',
-        buttonRootId: 'ton-connect'
-    });
-
-    const resultDiv = document.getElementById('result');
-
-    async function signTransaction() {
+         async function signTransaction() {
             if (!connector.connected) {
                 resultDiv.textContent = 'Wallet not connected';
                 return;
@@ -199,6 +188,21 @@
                 resultDiv.textContent = 'Failed to sign transaction: ' + error.message;
             }
         }
+
+        Telegram.WebApp.setHeaderColor('secondary_bg_color');
+
+        setViewportData();
+        Telegram.WebApp.onEvent('viewportChanged', setViewportData);
+
+        Telegram.WebApp.onEvent('themeChanged', function() {
+            document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
+        });
+
+    </script>
+    <script>
+
+
+
     </script>
 
     <!-- Eruda is console for mobile browsers -->
