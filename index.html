@@ -65,6 +65,7 @@
         }
     </style>
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 
 <body>
@@ -93,13 +94,22 @@
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
         <button onclick="signTransaction();">Toggle sign4 Button</button>
-
     </main>
     <div id="viewport"></div>
     <div id="viewport-params-size"></div>
     <div id="viewport-params-expand"></div>
     <div id="ton-connect"></div>
     <div id="result"></div>
+
+    
+    <h1>Configurable Address Generator</h1>
+    <div>
+        <label for="prefixLength">Prefix Length:</label>
+        <input type="number" id="prefixLength" min="1" max="64" value="3">
+        <button id="generateBtn">Generate Address</button>
+    </div>
+    <div id="combinationInfo"></div>
+    <div id="addressList"></div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         // Init TWA
@@ -200,8 +210,6 @@
                 s2izeEl.innerText = 'hello4-1';
             }
 
-
-
         }
 
         Telegram.WebApp.setHeaderColor('secondary_bg_color');
@@ -213,44 +221,74 @@
             document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
         });
 
-    </script>
-    <script>
 
 
-    // const resultDiv = document.getElementById('result');
+        function generateRandomAddress() {
+            const randomBytes = CryptoJS.lib.WordArray.random(32);
+            const hash = CryptoJS.SHA256(randomBytes);
+            return hash.toString();
+        }
 
-    // async function signTransaction() {
-    //         if (!connector.connected) {
-    //             resultDiv.textContent = 'Wallet not connected';
-    //             return;
-    //         }
-    //
-    //         const transaction = {
-    //             valid_until: Math.floor(Date.now() / 1000) + 60, // 60 seconds from now
-    //             network: 'testnet',
-    //             from: connector.account.address,
-    //             messages: [
-    //                 {
-    //                     address: 'EQA...', // Replace with actual recipient address
-    //                     amount: '100000000', // 0.1 TON
-    //                     stateInit: null,
-    //                     payload: 'te6ccgEBAQEABgAACCiAmCM='
-    //                 }
-    //             ]
-    //         };
-    //
-    //         try {
-    //             const result = await connector.rawApi.signTransaction(transaction);
-    //             console.log('Transaction signed:', result);
-    //             resultDiv.textContent = 'Transaction signed successfully! BOC: ' + result.boc.slice(0, 20) + '...';
-    //
-    //             // Here you would typically send the signed transaction to your server
-    //             // sendToServer(result.boc);
-    //         } catch (error) {
-    //             console.error('Failed to sign transaction:', error);
-    //             resultDiv.textContent = 'Failed to sign transaction: ' + error.message;
-    //         }
-    //     }
+        function getAddressPrefix(address, length) {
+            return address.substring(0, length);
+        }
+
+        function calculateCombinations(prefixLength) {
+            return Math.pow(16, prefixLength);
+        }
+
+        function updateCombinationInfo() {
+            const prefixLength = parseInt(document.getElementById('prefixLength').value);
+            if (prefixLength >= 1 && prefixLength <= 64) {
+                const combinations = calculateCombinations(prefixLength);
+                document.getElementById('combinationInfo').textContent = `Possible combinations: ${combinations.toLocaleString()}`;
+            } else {
+                document.getElementById('combinationInfo').textContent = 'Please enter a prefix length between 1 and 64.';
+            }
+        }
+
+        function generateAddress(prefixLength) {
+            const startTime = performance.now();
+            let targetAddress = generateRandomAddress();
+            let prefix = getAddressPrefix(targetAddress, prefixLength);
+            let newAddress;
+            let attempts = 0;
+
+            do {
+                newAddress = generateRandomAddress();
+                attempts++;
+            } while (getAddressPrefix(newAddress, prefixLength) !== prefix);
+
+            const endTime = performance.now();
+            const timeSpent = endTime - startTime;
+
+            return { targetAddress, targetPrefix: prefix, newAddress, attempts, timeSpent };
+        }
+
+        document.getElementById('prefixLength').addEventListener('input', updateCombinationInfo);
+
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const prefixLength = parseInt(document.getElementById('prefixLength').value);
+            if (prefixLength < 1 || prefixLength > 64) {
+                alert('Please enter a prefix length between 1 and 64.');
+                return;
+            }
+
+            const result = generateAddress(prefixLength);
+            const addressList = document.getElementById('addressList');
+            const addressElement = document.createElement('div');
+            addressElement.innerHTML = `
+                <p>Target Address: ${result.targetAddress}</p>
+                <p>Target Prefix: ${result.targetPrefix}</p>
+                <p>Matching Address: ${result.newAddress}</p>
+                <p class="attempt-info">Attempts: ${result.attempts}</p>
+                <p class="attempt-info">Time spent: ${result.timeSpent.toFixed(2)} milliseconds</p>
+            `;
+            addressList.appendChild(addressElement);
+        });
+
+        // Initialize combination info
+        updateCombinationInfo();
     </script>
 
     <!-- Eruda is console for mobile browsers -->
